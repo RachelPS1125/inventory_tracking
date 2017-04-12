@@ -1,0 +1,23 @@
+<form method="POST">
+    <div>
+        <input placeholder="Lender ID" type="number" name="lender_id"/>
+    </div>
+    <div>
+        <input placeholder="Borrower ID" type="text" name="borrower_id"/>
+    </div>
+    <div>
+        <select placeholder="Items" name="inventory-id">
+            <option value=''>Select One</option>
+            {{#each inventory}}
+            <option value='{{id}}'>{{name}}-{{quantity}}</option>   
+            {{/each}}
+        </select>
+    </div>
+    <input type="submit" value="Create"/>
+</form>
+
+<ul>
+    {{#each lends}}
+        <li></li>
+    {{/each}}
+</ul>

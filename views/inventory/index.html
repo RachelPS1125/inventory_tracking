@@ -1,0 +1,29 @@
+<form method="POST" enctype="multipart/form-data" class="js-inventory-form">
+    <div>
+        <input placeholder="Game Title" type="text" name="title" class="js-name">
+    </div>
+    <div>
+        <input placeholder="Quantity" type="number" name="quantity" class="js-quantity"/>
+    </div>
+    <div>
+        <input type="file" name="game_image" class="js-image"/>
+    </div>
+    <input type="hidden" class="js-id">
+    <button>Submit</button>
+</form>
+
+<ul class='js-inventory-container'>
+    <li id='js-inventory-item' class='dna-template'>
+        <div>Name: <span class='js-inventory-name'>~~name~~</span></div>
+        <div>Quantity: <span class='js-inventory-quantity'>~~quantity~~</span></div> 
+        <img style="width:200px" data-attr-src='~~imageLink~~' class='js-item-image'>
+        <button  class='js-delete' data-click='usdanInventory.inventory.onDelete'>Delete</button>
+        <button  class='js-update' data-click='usdanInventory.inventory.onUpdate'>Update</button>
+    </li>
+</ul>
+
+<div class='template js-template'>
+    
+</div>
+    
+<script type="text/javascript" src="/js/inventory.js"></script>

@@ -1,0 +1,40 @@
+<form method="POST" class='js-borrower-form'>
+    <div>
+        <input class='js-id-number' placeholder="ID Number" type="number" name="id_number"/>
+    </div>
+    <div>
+        <input class='js-first-name' placeholder="First Name" type="text" name="first_name"/>
+    </div>
+    <div>
+        <input class='js-last-name' placeholder="Last Name" type="text" name="last_name"/>
+    </div>
+    <div>
+        <input class='js-class-year' placeholder="Class Year" type="text" name="class_year">
+    </div>
+    <div>
+        <input class='js-email' placeholder="Email" type="email" name="email"/>
+    </div>
+    <div>
+        <input class='js-cell-number' placeholder="Cell Number" type="tel" name="cell_number"/>
+    </div>
+    <input type="submit" value="Create"/>
+</form>
+
+<ul class='js-borrower-container'>
+    <li id='js-borrower' class='dna-template'>
+        <div>ID Number: <span>~~idNumber~~</span></div>
+        <div>First Name: <span>~~firstName~~</span></div>
+        <div>Last Name: <span>~~lastName~~</span></div>
+        <div>Class Year: <span>~~classYear~~</span></div>
+        <div>Email: <span>~~email~~</span></div>
+        <div>Cell Phone Number: <span>~~cellNumber~~</span></div>
+        <button  class='js-delete' data-click='usdanInventory.borrower.onDelete'>Delete</button>
+        <button  class='js-update' data-click='usdanInventory.borrower.onUpdate'>Update</button>
+    </li>
+</ul>
+
+<div class='template js-template'>
+    
+</div>
+    
+<script type="text/javascript" src="/js/borrower.js"></script>
