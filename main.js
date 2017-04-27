@@ -2,12 +2,17 @@
 var express = require('express');
 var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var expressValidator = require('express-validator');
 var multer = require('multer');
 var multerS3 = require('multer-s3');
 var aws = require('aws-sdk');
 var passport = require('passport');
 var session = require('express-session');
+var dotenv = require('dotenv');
+var flash = require('express-flash');
+var messages = require('express-messages');
+dotenv.config();
 
 //controllers
 var homeController = require('./controllers/home');
@@ -17,6 +22,8 @@ var borrowerController = require('./controllers/borrower');
 var inventoryController = require('./controllers/inventory');
 var lendController = require('./controllers/lend');
 var passportConfig = require('./config/passport');
+
+
 
 var s3 = new aws.S3({
     secretAccessKey: process.env.AWS_SECRET,
@@ -50,7 +57,9 @@ passport.use(passportConfig.OAuth2Strategy);
 app.engine('.html', exphbs({extname: '.html', defaultLayout: 'main'}));
 app.set('view engine', '.html');
 app.use(express.static(__dirname + '/public'));
+app.use(cookieParser('fnaslknkjkewfnkwenknoifjgjejniewfifhiwn'));
 app.use(session({
+    cookie: { maxAge: 60000 },
     secret: 'fnaslknkjkewfnkwenknoifjgjejniewfifhiwn'
 }));
 app.use(passport.initialize());
@@ -63,15 +72,23 @@ app.use((req,res,next)=>{
     } 
     next();
 });
+app.use(flash());
+app.use(function(req, res, next){
+    res.locals.sessionFlash = req.session.sessionFlash;
+    delete req.session.sessionFlash;
+    next();
+});
 
 app.get('/', homeController.handler);
-
+app.get('/', function( req, res ) {
+    res.render('index', { expressFlash: req.flash('errors'), sessionFlash: res.locals.sessionFlash });
+});
 app.get('/login', authenticationController.handler);
 app.post('/login', authenticationController.postLogin);
 app.get('/logout', authenticationController.logout);
 
 app.get('/auth/google', passport.authenticate('google', {scope:['email', 'profile']}));
-app.get('/auth/google/callback', passport.authenticate('google', {failureRedirect: '/login'}), (req, res)=>{
+app.get('/auth/google/callback', passport.authenticate('google', {failureRedirect: '/login',  failureFlash : true}), (req, res)=>{
     var returnTo = req.session.returnTo;
     req.session.returnTo = null;
     res.redirect(returnTo || '/');

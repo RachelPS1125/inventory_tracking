@@ -44,7 +44,6 @@ exports.api = {
         if (req.file && req.file.location){
             payload.imageLink = req.file.location;
         }
-        console.log(payload);
         models.Inventory.update(payload,{
             where:{
                 id:id
@@ -52,7 +51,6 @@ exports.api = {
             returning: true,
             plain: true
         }).then((result)=>{
-           console.log(result);
            res.json(result[1]);
         }).catch((err)=>{
             res.json({error:err});

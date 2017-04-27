@@ -8,7 +8,7 @@ exports.index = (req, res)=>{
 
 exports.postUser = (req,res)=>{
     models.User.create({
-        email: req.body.email,
+        email: req.body.email.toLowerCase(),
         firstName: req.body.first_name,
         lastName: req.body.last_name
     }).then(()=>{
