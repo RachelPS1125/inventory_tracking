@@ -80,9 +80,7 @@ app.use(function(req, res, next){
 });
 
 app.get('/', homeController.handler);
-app.get('/', function( req, res ) {
-    res.render('index', { expressFlash: req.flash('errors'), sessionFlash: res.locals.sessionFlash });
-});
+
 app.get('/login', authenticationController.handler);
 app.post('/login', authenticationController.postLogin);
 app.get('/logout', authenticationController.logout);
